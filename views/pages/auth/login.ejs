@@ -1,0 +1,35 @@
+<%- include('../../partials/head') %>
+
+
+
+    <div class="container signupJumbo">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <div class="card card-body">
+                  <%- include('../../partials/alerts') %> 
+                    <form action="/auth/login" method="post">
+                      <h3 class="mb-3">Login to your Account</h3>
+                        <div class="form-group">
+                          <label for="email">Email address</label>
+                          <input type="email" name="email" class="form-control <%= error.email ? 'is-invalid' : '' %> " id="email" aria-describedby="emailHelp">
+                          <small id="emailHelp" class="form-text text-muted <%= error.email ? '.d-none': '' %> ">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" name="password" class="form-control <%= error.password ? 'is-invalid' : '' %> " id="password">
+                          <small id="emailHelp" class="form-text text-muted <%= error.password ? "d-none" : '' %> ">Please Enter a valid Password.</small>
+                        </div>
+                        <input type="submit" value="Submit" id="signupBtn" class="btn btn-primary">
+                      </form>
+                      <a href="/auth/signup" class="mt-4 text-center text-muted">Don't have any account? Signup here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<%- include('../../partials/footer') %> 
+
+</body>
+</html>

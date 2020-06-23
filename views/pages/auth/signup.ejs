@@ -1,0 +1,48 @@
+<%- include('../../partials/head') %>
+
+
+
+    <div class="container signupJumbo">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <div class="card card-body">
+                  <%- include('../../partials/alerts') %> 
+                    <form action="/auth/signup" method="post">
+                      <h3 class="mb-3">Create a new Account</h3>
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <input type="text" name="username" class="form-control <%= error.username ? "is-invalid" : '' %> " id="username" aria-describedby="emailHelp" value="<%= value.username ? value.username : "" %>">
+                          <div class="invalid-feedback"><%= error.username ? error.username : "" %> </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email address</label>
+                          <input type="email" name="email" class="form-control <%= error.email ? "is-invalid" : '' %>" id="email" aria-describedby="emailHelp" value="<%= value.email ? value.email : "" %>">
+                          <div class="invalid-feedback"><%= error.email ? error.email : "" %> </div>
+                          <small id="emailHelp" class="form-text text-muted <%= error.email ? 'd-none' : "" %>">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" name="password" class="form-control <%= error.password ? "is-invalid" : '' %>" id="password" value="<%= value.password ? value.password : '' %>">
+                          <div class="invalid-feedback"><%= error.password ? error.password : "" %> </div>
+                          <small id="emailHelp" class="form-text text-muted <%= error.password ? 'd-none' : "" %>">Please Create a Strong Password.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="confirmPassword">Confirm Password</label>
+                          <input type="password" name="confirmPassword" class="form-control <%= error.confirmPassword ? "is-invalid" : '' %>" id="confirmPassword">
+                          <div class="invalid-feedback"><%= error.confirmPassword ? error.confirmPassword : "" %> </div>
+                          <small id="emailHelp" class="form-text text-muted <%= error.confirmPassword ? 'd-none' : "" %>">Please Re-enter your Password.</small>
+                        </div>
+                        <input type="submit" value="Submit" id="signupBtn" class="btn btn-primary">
+                      </form>
+                      <a href="/auth/login" class="mt-4 text-center text-muted">Already have an account? Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<%- include('../../partials/footer') %> 
+
+</body>
+</html>

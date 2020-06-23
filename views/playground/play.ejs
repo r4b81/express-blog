@@ -1,0 +1,38 @@
+<%- include('../partials/head') %>
+
+<div class="container signupJumbo">
+  <div class="row">
+    <div class="col-md-6 offset-3">
+      <div class="card card-body">
+        <form
+          action="/play"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <h3 class="mb-3">Create a new Account</h3>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" />
+          </div>
+          <div class="form-group">
+            <label for="file">Choose your file</label>
+            <input type="file" name="image" class="form-control" id="file" accept="image/*"/>
+          </div>
+          <input
+            type="submit"
+            value="Submit"
+            id="signupBtn"
+            class="btn btn-primary"
+          />
+        </form>
+        <a href="/auth/login" class="mt-4 text-center text-muted"
+          >Already have an account? Login here</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+</body>
+</html>
