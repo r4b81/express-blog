@@ -1,16 +1,17 @@
-html, body{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    background-color: aliceblue;
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: aliceblue;
 }
-.signupJumbo{
-    height: 100vh;
-    margin-top: 10px;
+.signupJumbo {
+  height: 100vh;
+  margin-top: 10px;
 }
-footer{
-    padding: 20px 0;
+footer {
+  padding: 20px 0;
 }
-#profilePics{
-    width: 200px;
-    height: 200px;
+#profilePics {
+  width: 200px;
+  height: 200px;
 }

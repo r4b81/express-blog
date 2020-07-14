@@ -1,0 +1,101 @@
+<%- include('../../partials/head') %>
+
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-md-2"><%- include('../../partials/sidebar') %></div>
+    <div class="col-md-8">
+      <div class="card card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <img
+              src="<%= author.profilePics %>"
+              class="rounded-circle"
+              width="200"
+            />
+          </div>
+          <div class="ml-3 text-capitalize">
+            Name: <strong><%= author.name %></strong><br />Title:
+            <strong><%= author.title %></strong><br />
+            <p>Bio: <%= author.bio %></p>
+
+            <div>
+              <% if (author.link.website) { %>
+              <span>
+                <a
+                  class="text-decoration-none text-dark"
+                  style="font-size: 20px;"
+                  href="<%= author.link.website %>"
+                  target="_blank"
+                  ><i class="fab fa-internet-explorer"></i
+                ></a>
+              </span>
+              <% } %> <% if (author.link.facebook) { %>
+              <span>
+                <a
+                  class="text-decoration-none text-dark"
+                  style="font-size: 20px;"
+                  href="<%= author.link.facebook %>"
+                  target="_blank"
+                  ><i class="fab fa-facebook-square"></i
+                ></a>
+              </span>
+              <% } %> <% if (author.link.twitter) { %>
+              <span>
+                <a
+                  class="text-decoration-none text-dark"
+                  style="font-size: 20px;"
+                  href="<%= author.link.twitter %>"
+                  target="_blank"
+                  ><i class="fab fa-twitter-square"></i
+                ></a>
+              </span>
+              <% } %> <% if (author.link.github) { %>
+              <span>
+                <a
+                  class="text-decoration-none text-dark"
+                  style="font-size: 20px;"
+                  href="<%= author.link.github %>"
+                  target="_blank"
+                  ><i class="fab fa-github-square"></i
+                ></a>
+              </span>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <% if (author.posts.length === 0) { %>
+          <div class="col-sm text-center text-muted">
+            <p>There is no posts available right now</p>
+          </div>
+          <% } else { %> <% for(let post of author.posts.reverse() ) { %>
+
+          <div class="col-md-6 p-2">
+            <div class="card shadow">
+              <a href="/explorer/<%= post._id %>" class="text-decoration-none">
+                <% if (post.thumbnail) { %>
+                <img
+                  src="<%= post.thumbnail %>"
+                  alt="<%= post.title %>"
+                  class="card-img-top"
+                />
+                <% } %>
+                <div class="card-body">
+                  <h5 class="text-dark"><%= post.title %></h5>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <% } %> <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer') %>
+<script src="/scripts/bookmarks.js"></script>
+
+<!-- </body>
+</html> -->

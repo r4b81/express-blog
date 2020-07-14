@@ -1,0 +1,64 @@
+<%- include('../../partials/head') %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"><%- include('../../partials/sidebar') %></div>
+    <div class="col-md-10 my-3">
+      <div class="card card-body">
+        <div id="comment-holder">
+          <% if (comments.length === 0) { %>
+          <p class="text-muted text-center">There is No Comment</p>
+          <% } else { %> <% for(let comment of comments.reverse()){%>
+          <p class="text-muted mt-4">
+            On Post - <strong><%= comment.post.title %></strong> By
+            <a href="/profile/<%= comment.user._id %>">
+              <%= comment.user.username %></a
+            >, <%= moment(comment.createdAt) %>
+          </p>
+          <div class="media border border-top-0 pt-3">
+            <img
+              class="mr-3 rounded-circle"
+              src="<%= comment.user.profilePics %>"
+              width="40"
+            />
+            <div class="media-body">
+              <p><%= comment.body %></p>
+
+              <div class="replies">
+                <% if (comment.replies.length > 0){%> <% for(let reply of comment.replies){%>
+                <div class="media mt-3">
+                  <img
+                    class="mr-3 rounded-circle"
+                    src="<%= reply.user.profilePics %>"
+                    width="40"
+                  />
+                  <div class="media-body">
+                    <p><%= reply.body %></p>
+                  </div>
+                </div>
+                <% } %> <% } %>
+              </div>
+
+              <div class="my-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Press Enter to Reply"
+                  name="reply"
+                  data-comment="<%= comment._id %>"
+                />
+              </div>
+            </div>
+          </div>
+          <% } %> <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer') %>
+<script src="/scripts/comment.js"></script>
+
+</body>
+</html>

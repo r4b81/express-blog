@@ -1,0 +1,51 @@
+<%- include('../../partials/head') %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"><%- include('../../partials/sidebar') %></div>
+    <div class="col-md-10">
+      <div class="card card-body">
+        <div class="row">
+          <% if (posts.length === 0) { %>
+          <div class="col-sm text-center text-muted">
+            <p>You did not Bookmarked any Post</p>
+            <a href="/explorar" class="btn btn-sm btn-primary">View Posts</a>
+          </div>
+          <% } else { %> <% for(let post of posts.reverse() ) { %>
+
+          <div class="col-md-4 p-2">
+            <div class="card shadow">
+              <a href="/explorer/<%= post._id %>" class="text-decoration-none">
+                <% if (post.thumbnail) { %>
+                <img
+                  src="<%= post.thumbnail %>"
+                  alt="<%= post.title %>"
+                  class="card-img-top"
+                />
+                <% } %>
+                <div class="card-body">
+                  <p class="text-dark"><%= post.title %></p>
+                </div>
+              </a>
+              <span class="ml-auto mr-3 bookmark" data-post="<%= post._id %>">
+                <% if (post._id) { %>
+                <i class="fas fa-bookmark"></i>
+                <% } else { %>
+                <i class="far fa-bookmark"></i>
+                <% } %>
+              </span>
+            </div>
+          </div>
+
+          <% } %> <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer') %>
+<script src="/scripts/bookmarks.js"></script>
+
+</body>
+</html>

@@ -16,18 +16,20 @@ const profileSchema = new Schema({
     },
     title: {
         type: String,
+        required: true,
         trim: true,
         maxlength: 100
     },
     bio: {
         type: String,
+        required: true,
         trim: true,
         maxlength: 500
     },
     profilePics: String,
     link: {
+        website: String,
         facebook: String,
-        linkedin: String,
         twitter: String,
         github: String
     },

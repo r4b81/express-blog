@@ -1,0 +1,126 @@
+<%- include('../../partials/head') %> <%- include('../../partials/alerts') %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card card-body">
+        <section>
+          <h3><%= post.title %></h3>
+          <div class="d-flex">
+            <small>
+              <%= moment(post.createdAt) %>, Posted By <a href="/profile/<%= post.author._id %>"><%= post.author.username
+              %></a>, <%= post.readTime %>
+            </small>
+            <% if (user) { %>
+            <span class="ml-auto bookmark" data-post="<%= post._id %>">
+              <% if (bookmarks.includes(post._id)) { %>
+              <i class="fas fa-bookmark"></i>
+              <% } else { %>
+              <i class="far fa-bookmark"></i>
+              <% } %>
+            </span>
+            <% } %>
+          </div>
+          <% if (post.thumbnail) { %>
+          <img src="<%= post.thumbnail %>" class="img-fluid my-2" />
+          <% } %>
+
+          <section>
+            <%- post.body %>
+          </section>
+
+          <section>
+            <% if (!user) { %>
+            <button class="btn btn-success btn-sm my-5" disabled>
+              Like ( <%= post.likes.length %> )
+            </button>
+            <button class="btn btn-danger btn-sm my-5" disabled>
+              Dislike ( <%= post.dislikes.length %> )
+            </button>
+            <p class="text-center text-muted">
+              To Like And Comment Please <a href="/auth/login">Login</a>
+            </p>
+            <% } else { %>
+            <button
+              class="btn btn-success btn-sm mt-5"
+              id="likeBtn"
+              data-post="<%= post._id %>"
+            >
+              <%= post.likes.includes(post._id) ? 'Liked' : 'Like' %> ( <%=
+              post.likes.length %> )
+            </button>
+            <button
+              class="btn btn-danger btn-sm mt-5"
+              id="dislikeBtn"
+              data-post="<%= post._id %>"
+            >
+              <%= post.dislikes.includes(post._id) ? 'Disliked' : 'Dislike' %> (
+              <%= post.dislikes.length %> )
+            </button>
+
+            <div class="mt-5">
+              <label for="comment">Leave A Comment</label>
+              <input
+                type="text"
+                class="form-control"
+                id="comment"
+                placeholder="Press Enter to Submit"
+                data-post="<%= post._id %> "
+              />
+            </div>
+
+            <div class="mt-5" id="comment-holder">
+              <% if (post.comments.length === 0) { %>
+              <p class="text-muted text-center">There is No Comment</p>
+              <% } else { %> <% for(let comment of post.comments.reverse()){%>
+              <div class="media border pt-3">
+                <img
+                  class="mr-3 rounded-circle"
+                  src="<%= comment.user.profilePics %>"
+                  width="40"
+                />
+                <div class="media-body">
+                  <p><%= comment.body %></p>
+
+                  <div class="replies">
+                    <% if (comment.replies.length > 0){%>
+                    <% for(let reply of comment.replies){%>
+                    <div class="media mt-3">
+                      <img
+                        class="mr-3 rounded-circle"
+                        src="<%= reply.user.profilePics %>"
+                        width="40"
+                      />
+                      <div class="media-body">
+                        <p><%= reply.body %></p>
+                      </div>
+                    </div>
+                    <% } %> <% } %>
+                  </div>
+
+                  <div class="my-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Press Enter to Reply"
+                      name="reply"
+                      data-comment="<%= comment._id %>"
+                    />
+                  </div>
+                </div>
+              </div>
+              <% } %> <% } %>
+            </div>
+            <% } %>
+          </section>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer') %>
+<script src="/scripts/singlePostScripts.js"></script>
+
+</body>
+</html>

@@ -1,9 +1,75 @@
 <%- include('../../partials/head') %>
 <%- include('../../partials/alerts') %> 
-    <div class="container signupJumbo">
-      <div class="display-1 text-center">This is your dashboard!</div>
-    </div>
 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2"><%- include('../../partials/sidebar') %></div>
+        <div class="col-md-8 mt-5 offset-1">
+          <h5 class="text-center font-weight-bold">
+            Recently Created Posts
+          </h5>
+          <div class="row">
+            
+          <% if (posts.length === 0) { %>
+          <div class="col-sm text-center text-muted">
+            <p>There is no posts available right now</p>
+          </div>
+          <% } else { %> <% for(let post of posts ) { %>
+
+          <div class="col-md-4 p-2">
+            <div class="card shadow">
+              <a href="/explorer/<%= post._id %>" class="text-decoration-none">
+                <% if (post.thumbnail) { %>
+                <img
+                  src="<%= post.thumbnail %>"
+                  alt="<%= post.title %>"
+                  class="card-img-top"
+                />
+                <% } %>
+                <div class="card-body">
+                  <h5 class="text-dark"><%= post.title %></h5>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <% } %> <% } %>
+        </div>
+
+          <h5 class="text-center font-weight-bold mt-5">
+            Recently Created Bookmarks
+          </h5>
+          <div class="row mb-4">
+            
+          <% if (bookmarks.length === 0) { %>
+          <div class="col-sm text-center text-muted">
+            <p>There is no Bookmarks available right now</p>
+          </div>
+          <% } else { %> <% for(let post of bookmarks ) { %>
+
+          <div class="col-md-4 p-2">
+            <div class="card shadow">
+              <a href="/explorer/<%= post._id %>" class="text-decoration-none">
+                <% if (post.thumbnail) { %>
+                <img
+                  src="<%= post.thumbnail %>"
+                  alt="<%= post.title %>"
+                  class="card-img-top"
+                />
+                <% } %>
+                <div class="card-body">
+                  <h5 class="text-dark"><%= post.title %></h5>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <% } %> <% } %>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 <%- include('../../partials/footer') %> 

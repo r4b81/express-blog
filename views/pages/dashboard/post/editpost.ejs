@@ -1,0 +1,101 @@
+<%- include('../../../partials/head') %> <%- include('../../../partials/alerts')
+%>
+<script async src="https://cdn.tiny.cloud/1/v4n684k70331mx21ygadbvj6t36iie42k42z0rjzdpj25zlo/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"><%- include('../../../partials/sidebar') %></div>
+    <div class="col-md-10 my-4">
+      <div class="card card-body mx-5 px-5 py-3">
+        <h5 class="my-3 text-center">Edit Your Post</h5>
+        <form
+          action="/posts/edit/<%= post._id %> "
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="title">Enter your post title</label>
+            <input type="text" name="title" id="title" class="form-control <%= error.title ? 'is-invalid' : '' %> " value="<%= post.title %>"/>
+            <div class="invalid-feedback"><%= error.title ? error.title : '' %></div>
+          </div>
+          <div class="form-group">
+            <label for="tiny-mce-post-body">Enter your Post body</label>
+            <textarea
+              name="body"
+              id="tiny-mce-post-body"
+              class="form-control <%= error.body ? 'is-invalid' : '' %>"
+            ><%= post.body %></textarea>
+            <div class="invalid-feedback"><%= error.body ? error.body : '' %> </div>
+          </div>
+          <div class="form-group">
+            <label for="tags">Enter your tags (max 10)</label>
+            <input
+              type="text"
+              name="tags"
+              id="tags"
+              placeholder="ex: tag1, tag2, tag3"
+              class="form-control <%= error.tags ? 'is-invalid' : '' %>"
+              value="<%= post.tags.length > 0 ? post.tags.join(', ') : '' %>"
+            />
+            <div class="invalid-feedback"><%= error.tags ? error.tags : '' %> </div>
+          </div>
+          <% if (post.thumbnail) { %>
+            <div class="d-block">
+              <label class="d-block">Post thumbnail</label>
+              <img src="<%= post.thumbnail %> " alt="post thumbnail" class="img-fluid mb-3" width="200">
+            </div>
+          <% } %>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01"
+                >Upload</span
+              >
+            </div>
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                name="thumbnail"
+                id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01"
+              />
+              <label class="custom-file-label" for="inputGroupFile01"
+              >Choose your post thumnail</label
+              >
+            </div>
+          </div>
+          <input type="submit" value="Update post" class="btn btn-primary" />
+          <button type="button" class="btn btn-danger" data-target="#delete-modal" data-toggle="modal">Delete Post</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Post Deleted?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-danger" href="/posts/delete/<%= post._id %>">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../../../partials/footer') %>
+
+<script src="/scripts/tiny.js"></script>
+<script>
+  $('#inputGroupFile01').on('change', function (e) {
+    let fileName = e.target.files[0].name
+    $(this).next('.custom-file-label').html(fileName)
+  })
+</script>
+</body>
+</html>

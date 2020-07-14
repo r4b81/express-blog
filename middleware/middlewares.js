@@ -1,5 +1,4 @@
 const express = require("express");
-const morgan = require("morgan");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require("connect-flash");

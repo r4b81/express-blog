@@ -2,10 +2,11 @@ const fs = require("fs");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 
-
 exports.uploadProfilePics = async (req, res, next) => {
   if (req.file) {
     try {
+      let oldProfilePics = req.user.profilePics;
+
       let profile = await Profile.findOne({ user: req.user._id });
       let profilePics = `/uploads/${req.file.filename}`;
 
@@ -20,6 +21,14 @@ exports.uploadProfilePics = async (req, res, next) => {
         { _id: req.user._id },
         { $set: { profilePics } }
       );
+
+      if (oldProfilePics !== "/uploads/default.png") {
+        fs.unlink(`public${oldProfilePics}`, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
 
       res.status(200).json({
         profilePics,
@@ -37,10 +46,13 @@ exports.uploadProfilePics = async (req, res, next) => {
 };
 
 exports.removeProfilePics = (req, res, next) => {
-  let defaultProfile = "/uploads/default.png";
   let currentProfilePics = req.user.profilePics;
+  let defaultProfile = "/uploads/default.png";
 
   fs.unlink(`public${currentProfilePics}`, async (err) => {
+    if (err) {
+      console.log(err);
+    }
     try {
       let profile = await Profile.findOne({ user: req.user._id });
       if (profile) {
@@ -54,7 +66,6 @@ exports.removeProfilePics = (req, res, next) => {
         { _id: req.user._id },
         { $set: { profilePics: defaultProfile } }
       );
-      
     } catch (e) {
       console.log(e);
       res.status(500).json({
@@ -62,7 +73,19 @@ exports.removeProfilePics = (req, res, next) => {
       });
     }
   });
-  res.json({
+
+  res.status(200).json({
     profilePics: defaultProfile,
+  });
+};
+
+exports.postImageUploadController = (req, res, next) => {
+  if (req.file) {
+    return res.status(200).json({
+      imgUrl: `/uploads/${req.file.filename}`,
+    });
+  }
+  return res.status(500).json({
+    message: "HTTP Error",
   });
 };
