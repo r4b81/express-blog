@@ -10,9 +10,7 @@ const setMiddleware = require("./middleware/middlewares");
 //import routes
 const setRoutes = require("./routes/routes");
 
-const MongoDB_URI = `mongodb+srv://${config.get("db-username")}:${config.get(
-  "db-password"
-)}@cluster0-pnnzp.gcp.mongodb.net/express_blog?retryWrites=true&w=majority`;
+const MongoDB_URI = `mongodb+srv://${config.get("db-username")}:${config.get("db-password")}@cluster0-pnnzp.gcp.mongodb.net/express_blog?retryWrites=true&w=majority`;
 
 const app = express();
 
